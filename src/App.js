@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import Weather from './Weather';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      weather: []
+    };
+  }
+
+  componentDidMount() {
+    console.log(`conponentDidMount`);
+    this._getWeather();
+  }
+  
+  render () {
+    return (
+      <div>
+        <ul>
+          <li>{this.state.cityName}</li>
+          <li>{this.state.temp}</li>
+          <li>{this.state.clouds}</li>
+          <li>{this.state.windSpeed}, {this.state.windDir}</li>
+        </ul>
+      </div>
+    );
+  }
+
+  _getWeather = async () => {
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=Atlanta,us&appid=480f3b49133aec8af4ff0b38c34ef12c`);
+    console.log(response.data);
+    console.log(response.data.main);
+    this.setState({
+      cityName: response.data.name,
+      temp: response.data.main.temp,
+      clouds: response.data.weather[0].main,
+      windSpeed: response.data.wind.speed,
+      windDir: response.data.wind.deg
+    }, () => {
+      console.log('done setting state');
+    });
+  }
+
 }
 
 export default App;
