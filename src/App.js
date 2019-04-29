@@ -22,10 +22,10 @@ class App extends React.Component {
     return (
       <div>
         <ul>
-          <li>{this.state.cityName}</li>
-          <li>{this.state.temp}</li>
-          <li>{this.state.clouds}</li>
-          <li>{this.state.windSpeed}, {this.state.windDir}</li>
+          <li>City: {this.state.cityName}</li>
+          <li>Temp: {this.state.temp}</li>
+          <li>Sky: {this.state.clouds}</li>
+          <li>Wind Speed: {this.state.windSpeed}, {this.state.windDir}</li>
         </ul>
       </div>
     );
